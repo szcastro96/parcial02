@@ -113,13 +113,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             TabbedFragment tabbedFragment = new TabbedFragment();
             Bundle bundle = new Bundle();
             bundle.putString("token", token);
+            bundle.putInt("categoryId", 0);
             tabbedFragment.setArguments(bundle);
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
 
         } else if (id == R.id.ownews) {
-
+            TabbedFragment tabbedFragment = new TabbedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putInt("categoryId", 1);
+            tabbedFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
         } else if(id == R.id.csgonews){
+            TabbedFragment tabbedFragment = new TabbedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putInt("categoryId", 2);
+            tabbedFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
 
         }
         else if (id == R.id.favourites) {
