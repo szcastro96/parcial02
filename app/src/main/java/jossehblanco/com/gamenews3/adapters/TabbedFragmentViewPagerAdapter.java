@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import jossehblanco.com.gamenews3.fragments.ShowPlayersFragment;
 import jossehblanco.com.gamenews3.fragments.TabbedChildFragment;
 
 /**
@@ -37,7 +38,7 @@ public class TabbedFragmentViewPagerAdapter extends FragmentPagerAdapter {
                     bundle.putString("category", "lol");
                     break;
                 case 1:
-                    bundle.putString("category", "overwawtch");
+                    bundle.putString("category", "overwatch");
                     break;
                 case 2:
                     bundle.putString("category", "csgo");
@@ -47,7 +48,7 @@ public class TabbedFragmentViewPagerAdapter extends FragmentPagerAdapter {
             tcf.setArguments(bundle);
             return tcf;
         }else if(position == 1){
-            TabbedChildFragment tcf1 = new TabbedChildFragment();
+            ShowPlayersFragment tcf1 = new ShowPlayersFragment();
             Bundle bundle = new Bundle();
             bundle.putString("token", token);
             switch (categoryId){
@@ -55,7 +56,7 @@ public class TabbedFragmentViewPagerAdapter extends FragmentPagerAdapter {
                     bundle.putString("category", "lol");
                     break;
                 case 1:
-                    bundle.putString("category", "overwawtch");
+                    bundle.putString("category", "overwatch");
                     break;
                 case 2:
                     bundle.putString("category", "csgo");
@@ -72,7 +73,7 @@ public class TabbedFragmentViewPagerAdapter extends FragmentPagerAdapter {
                     bundle.putString("category", "lol");
                     break;
                 case 1:
-                    bundle.putString("category", "overwawtch");
+                    bundle.putString("category", "overwatch");
                     break;
                 case 2:
                     bundle.putString("category", "csgo");
@@ -107,5 +108,4 @@ public class TabbedFragmentViewPagerAdapter extends FragmentPagerAdapter {
                 return null;
         }
     }
-
 }
