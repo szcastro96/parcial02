@@ -81,18 +81,18 @@ public class ShowFavAdapter extends RecyclerView.Adapter<ShowFavAdapter.ShowFavV
 
 
         /*Picasso.with(mCtx)
-                .load(news.get(position).getCoverImage())
+                .load(players.get(position).getCoverImage())
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.iv);
-        holder.title.setText(news.get(position).getTitle());
-        holder.desc.setText(news.get(position).getDescription());
+        holder.title.setText(players.get(position).getTitle());
+        holder.desc.setText(players.get(position).getDescription());
         holder.ib.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 snackBarView = v;
                 System.out.println("Click al boton");
-                serviceNews.addFavourite("Bearer "+ token, news.get(position).get_id()).enqueue(new Callback<FavouriteResponse>() {
+                serviceNews.addFavourite("Bearer "+ token, players.get(position).get_id()).enqueue(new Callback<FavouriteResponse>() {
                     @Override
                     public void onResponse(Call<FavouriteResponse> call, Response<FavouriteResponse> response) {
                         if(response.body().getSuccess().equals("true")){
