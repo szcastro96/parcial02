@@ -27,7 +27,12 @@ public interface ServiceNews {
 
     //metodo para obtener la lista de noticias del API
     @GET("/news")
-    Call<List<New>> getNewsLoL(@Header("Authorization") String codigo);
+    Call<List<New>> getNewsAll(@Header("Authorization") String codigo);
+
+    //Noticias por categoria
+    @GET("/news/type/{game}")
+    Call<List<New>> getNewsTyped(@Header("Authorization") String codigo, @Path(value="game") String game);
+
     //Metodo para agregar noticia a favoritos
     @POST("/user/fav/{idNew}")
     Call<FavouriteResponse> addFavourite(@Header("Authorization") String codigo, @Path(value="idNew") String idNew);
