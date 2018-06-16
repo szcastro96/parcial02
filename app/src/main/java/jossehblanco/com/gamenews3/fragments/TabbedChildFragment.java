@@ -1,5 +1,6 @@
 package jossehblanco.com.gamenews3.fragments;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,10 +24,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by UCA on 16/6/2018.
  */
 
-public class ShowNewsFragment extends Fragment {
+public class TabbedChildFragment extends Fragment {
+    private String category;
     private List<New> news;
     private RetrofitClient retrofitClient;
     private Retrofit retro;
@@ -37,25 +39,27 @@ public class ShowNewsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        category = getArguments().getString("category");
         token = getArguments().getString("token");
-        return inflater.inflate(R.layout.fragment_show_news, container, false);
+        return inflater.inflate(R.layout.fragment_tabbed_child, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         System.out.println("antes de rv");
-        snrv = view.findViewById(R.id.RVnew);
+        snrv = view.findViewById(R.id.childFragmentRV);
         System.out.println("Despues del rv");
         //Obetniendo lista de news
 
         retrofitClient = new RetrofitClient();
         retro = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
         serviceNews = retro.create(ServiceNews.class);
-        serviceNews.getNewsAll("Bearer "+token.toString()).enqueue(new Callback<List<New>>() {
+        serviceNews.getNewsTyped("Bearer " + token.toString(), category).enqueue(new Callback<List<New>>() {
             @Override
             public void onResponse(Call<List<New>> call, Response<List<New>> response) {
                 if(response.body()!= null){
                     System.out.println("HOLA ENTRO");
+                    System.out.println(category);
                     System.out.println(token);
                     news = response.body();
                     GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
@@ -71,18 +75,28 @@ public class ShowNewsFragment extends Fragment {
                     System.out.println("antes del adapter");
                     ShowNewsAdapter adapter = new ShowNewsAdapter(news, token);
                     snrv.setAdapter(adapter);
-
                 }else{
                     System.out.println("Retorno nulo");
                     System.out.println(token);
                 }
             }
 
+
             @Override
             public void onFailure(Call<List<New>> call, Throwable t) {
                 System.out.println(t.getMessage());
             }
         });
+        /*serviceNews.getNewsAll("Bearer "+token.toString()).enqueue(new Callback<List<New>>() {
+            @Override
+            public void onResponse(Call<List<New>> call, Response<List<New>> response) {
+
+
+            @Override
+            public void onFailure(Call<List<New>> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });*/
 
         //
         super.onViewCreated(view, savedInstanceState);

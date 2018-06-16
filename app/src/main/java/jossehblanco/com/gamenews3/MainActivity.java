@@ -1,18 +1,17 @@
 package jossehblanco.com.gamenews3;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -24,6 +23,7 @@ import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
 import jossehblanco.com.gamenews3.fragments.ShowFavFragment;
 import jossehblanco.com.gamenews3.fragments.ShowNewsFragment;
+import jossehblanco.com.gamenews3.fragments.TabbedFragment;
 import jossehblanco.com.gamenews3.models.New;
 
 import retrofit2.Retrofit;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Bundle bundle = new Bundle();
         bundle.putString("token", token);
         showNewsFragment.setArguments(bundle);
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment_container, showNewsFragment).commit();
         //Finalizar de cargar el fragmento
         if(savedInstanceState == null){
@@ -101,24 +101,47 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.generalNews) {
             Fragment showNewsFragment = new ShowNewsFragment();
             Bundle bundle = new Bundle();
             bundle.putString("token", token);
             showNewsFragment.setArguments(bundle);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_fragment_container, showNewsFragment).commit();
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.lolnews) {
+            TabbedFragment tabbedFragment = new TabbedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putInt("categoryId", 0);
+            tabbedFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.ownews) {
+            TabbedFragment tabbedFragment = new TabbedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putInt("categoryId", 1);
+            tabbedFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
+        } else if(id == R.id.csgonews){
+            TabbedFragment tabbedFragment = new TabbedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("token", token);
+            bundle.putInt("categoryId", 2);
+            tabbedFragment.setArguments(bundle);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_fragment_container, tabbedFragment).commit();
 
-        } else if (id == R.id.nav_manage) {
+        }
+        else if (id == R.id.favourites) {
             Fragment showFavFragment = new ShowFavFragment();
             Bundle bundle = new Bundle();
             bundle.putString("token", token);
             showFavFragment.setArguments(bundle);
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_fragment_container, showFavFragment).commit();
         }
 
