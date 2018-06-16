@@ -59,6 +59,7 @@ public class TabbedChildFragment extends Fragment {
             public void onResponse(Call<List<New>> call, Response<List<New>> response) {
                 if(response.body()!= null){
                     System.out.println("HOLA ENTRO");
+                    System.out.println(category);
                     System.out.println(token);
                     news = response.body();
                     GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
