@@ -5,21 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
 import jossehblanco.com.gamenews3.R;
 import jossehblanco.com.gamenews3.adapters.ShowFavAdapter;
-import jossehblanco.com.gamenews3.adapters.ShowNewsAdapter;
-import jossehblanco.com.gamenews3.models.New;
 import jossehblanco.com.gamenews3.models.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,7 +29,7 @@ import retrofit2.Retrofit;
  */
 
 public class ShowFavFragment extends Fragment {
-    private List<String> news;
+    private String news;
     private RetrofitClient retrofitClient;
     private Retrofit retro;
     private ServiceNews serviceNews;
@@ -62,7 +60,9 @@ public class ShowFavFragment extends Fragment {
                     System.out.println("antes de layout");
                     sfrv.setLayoutManager(llm);
                     System.out.println("antes del adapter");
-                    ShowFavAdapter adapter = new ShowFavAdapter(news, token);
+                    List<String> hola = new ArrayList<>();
+                    hola.add("ella");
+                    ShowFavAdapter adapter = new ShowFavAdapter(hola, token);
                     sfrv.setAdapter(adapter);
                 }else{
                     System.out.println("La request fallo");
