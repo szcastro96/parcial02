@@ -29,17 +29,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by Salomon Castro on 13/6/2018.
  */
 
 public class ShowPlayersFragment extends Fragment {
+
     private List<Player> players;
-    private RetrofitClient retrofitClient;
-    private Retrofit retro;
-    private ServiceNews serviceNews;
+
     private PlayerVM playerVM;
     String token, category;
-    protected RecyclerView snrv;
+
+    protected RecyclerView snRV;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class ShowPlayersFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         System.out.println("antes de rv");
-        snrv = view.findViewById(R.id.RVplayer);
+        snRV = view.findViewById(R.id.RVplayer);
         System.out.println("Despues del rv");
         playerVM.updatePlayerDB(token, category);
         playerVM.getPlayerByGame(category).observe(this, new Observer<List<Player>>() {
@@ -63,9 +64,9 @@ public class ShowPlayersFragment extends Fragment {
                     System.out.println(playersList.get(i).getName());
                 }
                 LinearLayoutManager llm = new LinearLayoutManager(getActivity());
-                snrv.setLayoutManager(llm);
+                snRV.setLayoutManager(llm);
                 ShowPlayersAdapter adapter = new ShowPlayersAdapter(players, token);
-                snrv.setAdapter(adapter);
+                snRV.setAdapter(adapter);
             }
         });
         super.onViewCreated(view, savedInstanceState);

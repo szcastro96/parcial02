@@ -10,7 +10,7 @@ import java.util.List;
 import jossehblanco.com.gamenews3.models.Player;
 
 /**
- * Created by UCA on 16/6/2018.
+ * Created by Salomon Castro on 16/6/2018.
  */
 
 @Dao

@@ -6,40 +6,48 @@
     app:cardUseCompatPadding="true"
     android:padding="4dp"
     android:layout_margin="2dp">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
+
         <ImageView
             android:layout_margin="4dp"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:src="@drawable/ic_launcher_background"
-            android:id="@+id/itemShowFavCoverImage" />
+            android:id="@+id/itemFavIMG" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:id="@+id/itemShowFavTitle"
+            android:id="@+id/itemFavTitulo"
             android:text="TITULO"
             android:textSize="24sp"
             android:textAlignment="center" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/itemShowFavDescription"
+            android:id="@+id/itemFavDescripcion"
             android:text="DESCRIPCION"
             android:textAlignment="center"/>
+
         <Button
+            android:textColor="@android:color/white"
+            android:drawableLeft="@drawable/star"
+            android:background="#ef9a9a"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:text="Fav"
             android:src="@android:drawable/star_off"
-            android:id="@+id/itemShowFavButton"/>
+            android:id="@+id/itemFavBTN"/>
+
 
     </LinearLayout>
 

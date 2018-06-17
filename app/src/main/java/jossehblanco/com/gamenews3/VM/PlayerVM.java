@@ -15,25 +15,32 @@ import jossehblanco.com.gamenews3.models.Player;
  */
 
 public class PlayerVM extends AndroidViewModel {
-    private GameNewsRepo userRepository;
+
+    private GameNewsRepo usuarioRepositori;
+
     public PlayerVM(@NonNull Application application) {
+
         super(application);
-        userRepository = new GameNewsRepo(application);
+        usuarioRepositori = new GameNewsRepo(application);
     }
 
 
 
 
     public LiveData<List<Player>> getPlayerByGame(String game){
-        return userRepository.getPlayersByGame(game);
+
+        return usuarioRepositori.getPlayersByGame(game);
+
     }
 
     public void updatePlayerDB(String token, String game){
-        userRepository.getAllPlayersAndInsert(token, game);
+
+        usuarioRepositori.getAllPlayersAndInsert(token, game);
+
     }
 
     public void deleteAll(){
-        userRepository.deletePlayers();
+        usuarioRepositori.deletePlayers();
     }
 
 }

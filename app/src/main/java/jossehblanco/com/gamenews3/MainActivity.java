@@ -3,7 +3,6 @@ package jossehblanco.com.gamenews3;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,62 +16,59 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import java.util.List;
-
-import jossehblanco.com.gamenews3.API.RetrofitClient;
-import jossehblanco.com.gamenews3.API.ServiceNews;
-import jossehblanco.com.gamenews3.DB.DAO.PlayerDAO;
 import jossehblanco.com.gamenews3.VM.PlayerVM;
 import jossehblanco.com.gamenews3.fragments.ShowFavFragment;
 import jossehblanco.com.gamenews3.fragments.ShowNewsFragment;
 import jossehblanco.com.gamenews3.fragments.TabbedFragment;
-import jossehblanco.com.gamenews3.models.New;
-
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    //Views y Token
-    TextView newTitle;
+    //Views y Token de la activity
     String token;
-    private RetrofitClient retrofitClient;
-    private Retrofit retro;
-    private ServiceNews serviceNews;
-    private Intent intent;
-    private Button cargar;
-    private List<New> news;
-    private SharedPreferences preferences;
-    private PlayerVM playerVM;
-    //
+
+    private SharedPreferences preferencia;
+    private PlayerVM playerViewM;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        playerVM = ViewModelProviders.of(this).get(PlayerVM.class);
-        preferences = getSharedPreferences("usrInfo", Context.MODE_PRIVATE);
-        if(preferences.contains("usrToken")){
-            token = preferences.getString("usrToken", "nullstr");
+
+        playerViewM = ViewModelProviders.of(this).get(PlayerVM.class);
+        preferencia = getSharedPreferences("usrInfo", Context.MODE_PRIVATE);
+
+        if(preferencia.contains("usrToken")){
+
+            token = preferencia.getString("usrToken", "nullstr");
+
         }else{
+
             token = getIntent().getExtras().getString("usrToken");
+
         }
+
         loadNavigationMenu();
 
-        //Cargar el listado de Players
-        playerVM.updatePlayerDB(token,"lol");
-        playerVM.updatePlayerDB(token,"overwatch");
-        playerVM.updatePlayerDB(token,"csgo");
+        //Cargar los players
+
+        playerViewM.updatePlayerDB(token,"lol");
+
+        playerViewM.updatePlayerDB(token,"overwatch");
+
+        playerViewM.updatePlayerDB(token,"csgo");
+
         //Cargar el fragmento por primera vez
+
         Fragment showNewsFragment = new ShowNewsFragment();
         Bundle bundle = new Bundle();
         bundle.putString("token", token);
         showNewsFragment.setArguments(bundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_fragment_container, showNewsFragment).commit();
-        //Finalizar de cargar el fragmento
+
+        //Termina de cargar el fragmento completo
+
         if(savedInstanceState == null){
 
 
@@ -82,11 +78,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
+
             drawer.closeDrawer(GravityCompat.START);
+
         } else {
+
             super.onBackPressed();
+
         }
     }
 
@@ -168,17 +170,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadNavigationMenu(){
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = (Toolbar) findViewById(R.id.toolBAR);
     setSupportActionBar(toolbar);
-    /*
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    });*/
 
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -186,10 +179,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     drawer.addDrawerListener(toggle);
     toggle.syncState();
 
-    NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+    NavigationView navigationView = (NavigationView) findViewById(R.id.NAV_view);
     navigationView.setNavigationItemSelectedListener(this);
-    navigationView.getMenu().addSubMenu("Hola bb").add("holi");
-    navigationView.getMenu().getItem(0).setChecked(true);
-}
+
+    }
 
 }

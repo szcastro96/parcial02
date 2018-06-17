@@ -13,41 +13,46 @@ import jossehblanco.com.gamenews3.models.User;
  */
 
 public class UserVM extends AndroidViewModel {
-    private GameNewsRepo userRepository;
+    private GameNewsRepo usuarioRepositori;
     private LiveData<String> token;
 
 
-    public void insert(User user){ userRepository.insertU(user);}
+    public void insert(User user){ usuarioRepositori.insertU(user);}
+
 
     public void initToken(String user,String password){
+
         if (this.token != null) {
-            // ViewModel is created per Fragment so
-            // we know the userId won't change
+
             return;
         }
-        token = userRepository.login(user,password);
+
+        token = usuarioRepositori.login(user,password);
     }
 
     public LiveData<String> getToken() {
         return token;
     }
 
+
     public LiveData<User> getUserDetail(String token) {
-        return userRepository.getUserDetail(token);
+
+        return usuarioRepositori.getUserDetail(token);
     }
 
     public LiveData<User> getUser(){
-        return userRepository.getUser();
+        return usuarioRepositori.getUser();
     }
 
+
     public void deleteAll(){
-        userRepository.deleteUser();
+        usuarioRepositori.deleteUser();
     }
 
 
     public UserVM(@NonNull Application application) {
         super(application);
-        userRepository = new GameNewsRepo(application);
+        usuarioRepositori = new GameNewsRepo(application);
     }
 
 }

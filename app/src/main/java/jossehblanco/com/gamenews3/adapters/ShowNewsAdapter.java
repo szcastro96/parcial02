@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +26,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by Salomon Castro on 13/6/2018.
  */
 
 public class ShowNewsAdapter extends RecyclerView.Adapter<ShowNewsAdapter.ShowNewsViewHolder> {
@@ -101,13 +100,12 @@ public class ShowNewsAdapter extends RecyclerView.Adapter<ShowNewsAdapter.ShowNe
         Button ib;
         public ShowNewsViewHolder(View itemView) {
             super(itemView);
-            cv = itemView.findViewById(R.id.itemShowNewsCV);
-            iv = itemView.findViewById(R.id.itemShowNewsCoverImage);
-            title = itemView.findViewById(R.id.itemShowNewsTitle);
-            desc = itemView.findViewById(R.id.itemShowNewsDescription);
-            ib = itemView.findViewById(R.id.favButton);
-            //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YjBmZmMxZWM4NDcxYTAwMjAxNGMzMDEiLCJpYXQiOjE1Mjg5NTU0MDIsImV4cCI6MTUyODk1OTAwMn0.i-Omg2sThOO3nI72BYDSpwtnHxY8PS_oG5HnYvkJwBw
-            //5b0f2555fb295f74c7a0b46c
+            cv = itemView.findViewById(R.id.itemNuevoCV);
+            iv = itemView.findViewById(R.id.itemNuevaIMG);
+            title = itemView.findViewById(R.id.itemNuevatitulo);
+            desc = itemView.findViewById(R.id.itemNuevaTitulo);
+            ib = itemView.findViewById(R.id.favBTN);
+
         }
     }
 }

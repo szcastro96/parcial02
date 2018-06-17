@@ -15,31 +15,33 @@ import java.util.List;
 import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
 import jossehblanco.com.gamenews3.R;
-import jossehblanco.com.gamenews3.models.New;
 import jossehblanco.com.gamenews3.models.Player;
 import retrofit2.Retrofit;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by Salomon Castro on 13/6/2018.
  */
 
 public class ShowPlayersAdapter extends RecyclerView.Adapter<ShowPlayersAdapter.showPlayersViewHolder> {
-    List<Player> players;
-    Context mCtx;
+    List<Player> jugadores;
+    Context mContext;
     String token;
     RetrofitClient retrofitClient;
-    Retrofit retro;
-    ServiceNews serviceNews;
-    View snackBarView;
+    Retrofit retroF;
+    ServiceNews servicioN;
+
     public ShowPlayersAdapter(List<Player> players, String token){
-        this.players = players; this.token = token;
+
+        this.jugadores = players; this.token = token;
         retrofitClient = new RetrofitClient();
-        retro = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
-        serviceNews = retro.create(ServiceNews.class);
+        retroF = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
+        servicioN = retroF.create(ServiceNews.class);
     }
+
     @Override
     public showPlayersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        mCtx = parent.getContext();
+
+        mContext = parent.getContext();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_show_players, parent, false);
         showPlayersViewHolder snvh = new showPlayersViewHolder(v);
         return snvh;
@@ -47,29 +49,29 @@ public class ShowPlayersAdapter extends RecyclerView.Adapter<ShowPlayersAdapter.
 
     @Override
     public void onBindViewHolder(showPlayersViewHolder holder, final int position) {
-        Picasso.with(mCtx)
-                .load(players.get(position).getAvatar())
+        Picasso.with(mContext)
+                .load(jugadores.get(position).getAvatar())
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.iv);
-        holder.title.setText(players.get(position).getName());
+        holder.title.setText(jugadores.get(position).getName());
     }
 
 
     @Override
     public int getItemCount() {
-        return players.size();
+        return jugadores.size();
     }
 
     public static class showPlayersViewHolder extends  RecyclerView.ViewHolder{
+
         ImageView iv;
         TextView title;
         public showPlayersViewHolder(View itemView) {
             super(itemView);
-            iv = itemView.findViewById(R.id.itemShowPlayersCoverImage);
-            title = itemView.findViewById(R.id.itemShowPlayersName);
-            //eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YjBmZmMxZWM4NDcxYTAwMjAxNGMzMDEiLCJpYXQiOjE1Mjg5NTU0MDIsImV4cCI6MTUyODk1OTAwMn0.i-Omg2sThOO3nI72BYDSpwtnHxY8PS_oG5HnYvkJwBw
-            //5b0f2555fb295f74c7a0b46c
+            iv = itemView.findViewById(R.id.itemJugadorIMG);
+            title = itemView.findViewById(R.id.itemNombreJugador);
+
         }
     }
 }

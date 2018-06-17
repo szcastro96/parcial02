@@ -28,79 +28,92 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by Salomon Castro on 13/6/2018.
  */
 
 public class ShowNewsFragment extends Fragment {
-    private List<New> news;
-    private RetrofitClient retrofitClient;
-    private Retrofit retro;
-    private ServiceNews serviceNews;
-    private Intent intent;
-    private SharedPreferences preferences;
-    private NewVM newVM;
+    private List<New> nuevos;
+
+    private NewVM nuevoVM;
     String token;
     protected RecyclerView snrv;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
         token = getArguments().getString("token");
-            newVM = ViewModelProviders.of(this).get(NewVM.class);
+            nuevoVM = ViewModelProviders.of(this).get(NewVM.class);
         return inflater.inflate(R.layout.fragment_show_news, container, false);
+
     }
 
-    @Override
+    /*@Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
         System.out.println("antes de rv");
         snrv = view.findViewById(R.id.RVnew);
         System.out.println("Despues del rv");
-        newVM.getAllnoticias(token).observe(this, new Observer<List<New>>() {
+        nuevoVM.getAllnoticias(token).observe(this, new Observer<List<New>>() {
             @Override
             public void onChanged(@Nullable List<New> newsList) {
-                news = newsList;
+
+                nuevos = newsList;
                 GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+
                 glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                     @Override
                     public int getSpanSize(int position) {
+
                         if(position%3 == 0) return 2;
                         else return 1;
+
                     }
                 });
+
                 System.out.println("antes de layout");
                 snrv.setLayoutManager(glm);
                 System.out.println("antes del adapter");
-                ShowNewsAdapter adapter = new ShowNewsAdapter(news, token);
+                ShowNewsAdapter adapter = new ShowNewsAdapter(nuevos, token);
                 snrv.setAdapter(adapter);
+
             }
         });
 
-        //Obetniendo lista de news
-        /*
-        retrofitClient = new RetrofitClient();
-        retro = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
-        serviceNews = retro.create(ServiceNews.class);
-        serviceNews.getNewsAll("Bearer "+token.toString()).enqueue(new Callback<List<New>>() {
+        super.onViewCreated(view, savedInstanceState);
+    }*/
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        System.out.println("antes de rv");
+        snrv = view.findViewById(R.id.RVnew);
+        System.out.println("Despues del rv");
+        nuevoVM.getAllnoticias(token).observe(this, new Observer<List<New>>() {
             @Override
-            public void onResponse(Call<List<New>> call, Response<List<New>> response) {
-                if(response.body()!= null){
-                    System.out.println("HOLA ENTRO");
-                    System.out.println(token);
-                    news = response.body();
+            public void onChanged(@Nullable List<New> newsList) {
 
+                nuevos = newsList;
+                GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
 
-                }else{
-                    System.out.println("Retorno nulo");
-                    System.out.println(token);
-                }
-            }
+                glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
 
-            @Override
-            public void onFailure(Call<List<New>> call, Throwable t) {
-                System.out.println(t.getMessage());
+                        if(position%3 == 0) return 2;
+                        else return 1;
+
+                    }
+                });
+
+                System.out.println("antes de layout");
+                snrv.setLayoutManager(glm);
+                System.out.println("antes del adapter");
+                ShowNewsAdapter adapter = new ShowNewsAdapter(nuevos, token);
+                snrv.setAdapter(adapter);
+
             }
         });
-*/
-        //
+
         super.onViewCreated(view, savedInstanceState);
     }
 }

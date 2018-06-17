@@ -13,7 +13,7 @@ import java.util.List;
 import jossehblanco.com.gamenews3.models.User;
 
 /**
- * Created by UCA on 16/6/2018.
+ * Created by Salomon Castro on 16/6/2018.
  */
 @Dao
 public interface UserDAO {

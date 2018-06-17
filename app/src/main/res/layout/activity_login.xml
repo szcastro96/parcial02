@@ -6,30 +6,41 @@
     android:layout_height="match_parent"
     tools:context="jossehblanco.com.gamenews3.MainActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="#303F9F">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/game"/>
+
     <TextView android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="GAME NEWS"
+        android:text="GAME NOTICE"
         android:textSize="32sp"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="#FFFFFF"/>
+
     <EditText
-        android:id="@+id/user"
+        android:id="@+id/usuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="USERNAME"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="#FFFFFF"/>
+
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/contra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="PASSWORD"
         android:inputType="textPassword"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="#FFFFFF"/>
+
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/loginBTN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOGIN"
         android:background="@color/colorPrimaryDark"
         android:textColor="#FFFF"/>
+
 </LinearLayout>

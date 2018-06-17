@@ -15,40 +15,42 @@ import jossehblanco.com.gamenews3.models.New;
  */
 
 public class NewVM extends AndroidViewModel {
-    private GameNewsRepo userRepository;
+
+    private GameNewsRepo usuarioRepositori;
 
     public LiveData<List<New>> getAllnoticias(String token) {
-        return userRepository.getAllNewsAndInsert(token);
+
+        return usuarioRepositori.getAllNewsAndInsert(token);
+
     }
 
     public void setFavoritos(String token,String userId,String noticiaId,String favs){
-        userRepository.setFavoritos(token,userId,noticiaId,favs);
+
+        usuarioRepositori.setFavoritos(token,userId,noticiaId,favs);
+
     }
-    /*
-    public void deleteFavoritos(String token,String userId,String noticiaId,String favs){
-        userRepository.deleteFavoritos(token,userId,noticiaId,favs);
-    }*/
 
     public LiveData<New> getNewDetail(String token,String idNoticia){
-        return userRepository.getNewDetailDB(token, idNoticia);
+
+        return usuarioRepositori.getNewDetailDB(token, idNoticia);
+
     }
 
     public LiveData<List<New>> getNewByGameDB(String game){
-        return userRepository.getNewByGameFromDB(game);
+
+        return usuarioRepositori.getNewByGameFromDB(game);
+
     }
-/*
-    public LiveData<String []> getCategorias(String token){
-        System.out.println("NOTICIA VM INGRESA TOKEN: " + token);
-        return userRepository.getCategorias(token);
-    }*/
 
     public void deleteAll(){
-        userRepository.deleteAllNoticias();
+        usuarioRepositori.deleteAllNoticias();
     }
 
+
     public NewVM(@NonNull Application application) {
+
         super(application);
-        userRepository = new GameNewsRepo(application);
+        usuarioRepositori = new GameNewsRepo(application);
     }
 
 

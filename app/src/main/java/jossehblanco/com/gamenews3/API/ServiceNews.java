@@ -17,7 +17,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
- * Created by UCA on 4/6/2018.
+ * Created by Salomon Castro on 4/6/2018.
  */
 
 public interface ServiceNews {

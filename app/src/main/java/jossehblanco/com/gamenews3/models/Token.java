@@ -1,7 +1,7 @@
 package jossehblanco.com.gamenews3.models;
 
 /**
- * Created by UCA on 4/6/2018.
+ * Created by Salomon Castro on 4/6/2018.
  */
 
 public class Token {

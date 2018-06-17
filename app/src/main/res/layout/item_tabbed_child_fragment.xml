@@ -3,44 +3,53 @@
     android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/itemShowNewsCV"
+    android:id="@+id/itemNuevoCV"
     app:cardUseCompatPadding="true"
     android:padding="4dp"
     android:layout_margin="2dp">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center">
+
         <ImageView
             android:layout_margin="4dp"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:src="@drawable/ic_launcher_background"
-            android:id="@+id/itemTCFCoverImage" />
+            android:id="@+id/itemTCFIMG" />
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:id="@+id/itemTCFTitle"
-            android:text="TITULO"
+            android:id="@+id/itemTCFTITLE"
+            android:text="tintulo"
             android:textSize="24sp"
             android:textAlignment="center" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:id="@+id/itemTCFDesc"
-            android:text="DESCRIPCION"
+            android:id="@+id/itemTCFDESCRIPCION"
+            android:text="descripcion"
             android:textAlignment="center"/>
+
         <Button
+            android:textColor="@android:color/white"
+            android:drawableLeft="@drawable/star"
+            android:background="#ef9a9a"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:text="Fav"
+            android:text="Favorito"
             android:src="@android:drawable/star_off"
-            android:id="@+id/TFCfav"/>
+            android:id="@+id/itemTFCfAV"/>
+
 
     </LinearLayout>
 

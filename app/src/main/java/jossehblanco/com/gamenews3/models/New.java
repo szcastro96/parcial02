@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
- * Created by UCA on 13/6/2018.
+ * Created by Salomon Castro on 13/6/2018.
  */
 @Entity(tableName = "new")
 public class New {
@@ -69,33 +69,19 @@ public class New {
         return created_date;
     }
 
-    public void set_id(String _id) {
-        this._id = _id;
-    }
+
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public void setCoverImage(String coverimage) {
-        this.coverImage = coverimage;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setCreated_date(String created_date) {
-        this.created_date = created_date;
-    }
 
     public String getBody() {
         return body;
     }
 
-    public void setBody(String body) {
-        this.body = body;
-    }
+    
 
     public String getGame() {
         return game;
