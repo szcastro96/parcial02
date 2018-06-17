@@ -1,6 +1,10 @@
 package jossehblanco.com.gamenews3.fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +19,7 @@ import java.util.List;
 import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
 import jossehblanco.com.gamenews3.R;
+import jossehblanco.com.gamenews3.VM.NewVM;
 import jossehblanco.com.gamenews3.adapters.ShowNewsAdapter;
 import jossehblanco.com.gamenews3.models.New;
 import retrofit2.Call;
@@ -32,12 +37,15 @@ public class ShowNewsFragment extends Fragment {
     private Retrofit retro;
     private ServiceNews serviceNews;
     private Intent intent;
+    private SharedPreferences preferences;
+    private NewVM newVM;
     String token;
     protected RecyclerView snrv;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         token = getArguments().getString("token");
+            newVM = ViewModelProviders.of(this).get(NewVM.class);
         return inflater.inflate(R.layout.fragment_show_news, container, false);
     }
 
@@ -46,8 +54,28 @@ public class ShowNewsFragment extends Fragment {
         System.out.println("antes de rv");
         snrv = view.findViewById(R.id.RVnew);
         System.out.println("Despues del rv");
-        //Obetniendo lista de news
+        newVM.getAllnoticias(token).observe(this, new Observer<List<New>>() {
+            @Override
+            public void onChanged(@Nullable List<New> newsList) {
+                news = newsList;
+                GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+                glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        if(position%3 == 0) return 2;
+                        else return 1;
+                    }
+                });
+                System.out.println("antes de layout");
+                snrv.setLayoutManager(glm);
+                System.out.println("antes del adapter");
+                ShowNewsAdapter adapter = new ShowNewsAdapter(news, token);
+                snrv.setAdapter(adapter);
+            }
+        });
 
+        //Obetniendo lista de news
+        /*
         retrofitClient = new RetrofitClient();
         retro = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
         serviceNews = retro.create(ServiceNews.class);
@@ -58,19 +86,7 @@ public class ShowNewsFragment extends Fragment {
                     System.out.println("HOLA ENTRO");
                     System.out.println(token);
                     news = response.body();
-                    GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-                    glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                        @Override
-                        public int getSpanSize(int position) {
-                            if(position%3 == 0) return 2;
-                            else return 1;
-                        }
-                    });
-                    System.out.println("antes de layout");
-                    snrv.setLayoutManager(glm);
-                    System.out.println("antes del adapter");
-                    ShowNewsAdapter adapter = new ShowNewsAdapter(news, token);
-                    snrv.setAdapter(adapter);
+
 
                 }else{
                     System.out.println("Retorno nulo");
@@ -83,7 +99,7 @@ public class ShowNewsFragment extends Fragment {
                 System.out.println(t.getMessage());
             }
         });
-
+*/
         //
         super.onViewCreated(view, savedInstanceState);
     }

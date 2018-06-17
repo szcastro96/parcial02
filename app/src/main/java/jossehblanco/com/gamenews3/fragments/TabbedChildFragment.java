@@ -1,6 +1,8 @@
 package jossehblanco.com.gamenews3.fragments;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,6 +18,7 @@ import java.util.List;
 import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
 import jossehblanco.com.gamenews3.R;
+import jossehblanco.com.gamenews3.VM.NewVM;
 import jossehblanco.com.gamenews3.adapters.ShowNewsAdapter;
 import jossehblanco.com.gamenews3.models.New;
 import retrofit2.Call;
@@ -34,6 +37,7 @@ public class TabbedChildFragment extends Fragment {
     private Retrofit retro;
     private ServiceNews serviceNews;
     private Intent intent;
+    private NewVM newVM;
     String token;
     protected RecyclerView snrv;
     @Nullable
@@ -41,6 +45,7 @@ public class TabbedChildFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         category = getArguments().getString("category");
         token = getArguments().getString("token");
+        newVM = ViewModelProviders.of(this).get(NewVM.class);
         return inflater.inflate(R.layout.fragment_tabbed_child, container, false);
     }
 
@@ -49,8 +54,25 @@ public class TabbedChildFragment extends Fragment {
         System.out.println("antes de rv");
         snrv = view.findViewById(R.id.childFragmentRV);
         System.out.println("Despues del rv");
+        newVM.getNewByGameDB(category).observe(this, new Observer<List<New>>() {
+            @Override
+            public void onChanged(@Nullable List<New> newsList) {
+                news = newsList;
+                GridLayoutManager glm = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+                glm.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+                    @Override
+                    public int getSpanSize(int position) {
+                        if(position%3 == 0) return 2;
+                        else return 1;
+                    }
+                });
+                snrv.setLayoutManager(glm);
+                ShowNewsAdapter adapter = new ShowNewsAdapter(news, token);
+                snrv.setAdapter(adapter);
+            }
+        });
         //Obetniendo lista de news
-
+/*
         retrofitClient = new RetrofitClient();
         retro = retrofitClient.getClient("http://gamenewsuca.herokuapp.com/");
         serviceNews = retro.create(ServiceNews.class);
@@ -87,6 +109,7 @@ public class TabbedChildFragment extends Fragment {
                 System.out.println(t.getMessage());
             }
         });
+        */
         /*serviceNews.getNewsAll("Bearer "+token.toString()).enqueue(new Callback<List<New>>() {
             @Override
             public void onResponse(Call<List<New>> call, Response<List<New>> response) {

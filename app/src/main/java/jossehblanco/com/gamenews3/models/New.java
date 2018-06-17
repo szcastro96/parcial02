@@ -1,11 +1,43 @@
 package jossehblanco.com.gamenews3.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created by UCA on 13/6/2018.
  */
-
+@Entity(tableName = "new")
 public class New {
-    private String _id, title, description, coverImage, body, game,  created_date;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String _id;
+    @NonNull
+    @ColumnInfo(name = "title")
+    private String title;
+    @NonNull
+    @ColumnInfo(name = "description")
+    private String description;
+    @ColumnInfo(name = "coverImage")
+    private String coverImage;
+    @ColumnInfo(name = "body")
+    private String body;
+    @ColumnInfo(name = "game")
+    private String game;
+    @ColumnInfo(name = "created_date")
+    private String created_date;
+    @ColumnInfo(name = "fav")
+    private Boolean fav = false;
+
+    public Boolean getFav() {
+        return fav;
+    }
+
+    public void setFav(Boolean fav) {
+        this.fav = fav;
+    }
 
     public New(String _id, String title, String description, String coverImage, String body, String game, String created_date){
         this._id = _id;
@@ -55,5 +87,21 @@ public class New {
 
     public void setCreated_date(String created_date) {
         this.created_date = created_date;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getGame() {
+        return game;
+    }
+
+    public void setGame(String game) {
+        this.game = game;
     }
 }

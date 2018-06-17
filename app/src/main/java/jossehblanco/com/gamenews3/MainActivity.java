@@ -1,7 +1,10 @@
 package jossehblanco.com.gamenews3;
 
 
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,6 +25,8 @@ import java.util.List;
 
 import jossehblanco.com.gamenews3.API.RetrofitClient;
 import jossehblanco.com.gamenews3.API.ServiceNews;
+import jossehblanco.com.gamenews3.DB.DAO.PlayerDAO;
+import jossehblanco.com.gamenews3.VM.PlayerVM;
 import jossehblanco.com.gamenews3.fragments.ShowFavFragment;
 import jossehblanco.com.gamenews3.fragments.ShowNewsFragment;
 import jossehblanco.com.gamenews3.fragments.TabbedFragment;
@@ -39,15 +45,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Intent intent;
     private Button cargar;
     private List<New> news;
+    private SharedPreferences preferences;
+    private PlayerVM playerVM;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        playerVM = ViewModelProviders.of(this).get(PlayerVM.class);
+        preferences = getSharedPreferences("usrInfo", Context.MODE_PRIVATE);
+        if(preferences.contains("usrToken")){
+            token = preferences.getString("usrToken", "nullstr");
+        }else{
+            token = getIntent().getExtras().getString("usrToken");
+        }
         loadNavigationMenu();
 
-        //Cargar Noticias generales
-        token = getIntent().getExtras().getString("usrToken");
+        //Cargar el listado de Players
+        playerVM.updatePlayerDB(token,"lol");
+        playerVM.updatePlayerDB(token,"overwatch");
+        playerVM.updatePlayerDB(token,"csgo");
         //Cargar el fragmento por primera vez
         Fragment showNewsFragment = new ShowNewsFragment();
         Bundle bundle = new Bundle();
