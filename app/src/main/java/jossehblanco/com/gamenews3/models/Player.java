@@ -1,11 +1,27 @@
 package jossehblanco.com.gamenews3.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 /**
  * Created by UCA on 16/6/2018.
  */
-
+@Entity(tableName = "player")
 public class Player {
-    private String _id, avatar, name, biografia, game;
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "id")
+    private String _id;
+    @ColumnInfo(name = "avater")
+    private String avatar;
+    @ColumnInfo(name = "name")
+    private String name;
+    @ColumnInfo(name = "bio")
+    private String biografia;
+    @ColumnInfo(name = "game")
+    private String game;
 
     public Player(String _id, String avatar, String name, String biografia, String game) {
         this._id = _id;
